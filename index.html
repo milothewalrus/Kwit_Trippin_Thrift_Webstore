@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kwit Trippin — Thrifted. Flipped. Shipped.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+:root{
+  --red:#e4002b;
+  --black:#111;
+  --white:#fff;
+  --gray-bg:#f5f5f5;
+  --gray-muted:#777;
+  --gray-border:#e2e2e2;
+  --hh:70px
+}
+
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  color:var(--black);
+  background:var(--white);
+  -webkit-font-smoothing:antialiased
+}
+
+/* ══ HEADER ══════════════════════════════════════ */
+header{
+  position:sticky;top:0;z-index:100;
+  height:var(--hh);
+  background:var(--white);
+  border-bottom:1.5px solid var(--gray-border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;gap:24px
+}
+
+.logo{
+  display:flex;align-items:center;gap:14px;
+  text-decoration:none;flex-shrink:0
+}
+
+.logo-pill{
+  background:var(--red);color:var(--white);
+  font-family:'Bebas Neue',Impact,'Arial Narrow',sans-serif;
+  font-size:1.6rem;letter-spacing:.1em;
+  padding:9px 28px 7px;border-radius:100px;
+  line-height:1;display:block;user-select:none;
+  transition:box-shadow .2s
+}
+.logo:hover .logo-pill{box-shadow:0 0 0 4px rgba(228,0,43,.2)}
+
+.logo-sub{
+  font-size:.67rem;font-weight:600;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--gray-muted);line-height:1.5
+}
+
+nav{display:flex;gap:32px}
+nav a{
+  text-decoration:none;color:var(--black);
+  font-size:.82rem;font-weight:600;
+  letter-spacing:.07em;text-transform:uppercase;
+  transition:color .15s
+}
+nav a:hover{color:var(--red)}
+
+/* ══ MARQUEE ══════════════════════════════════════ */
+.strip{
+  background:var(--red);color:var(--white);
+  height:36px;overflow:hidden;
+  display:flex;align-items:center;user-select:none
+}
+.marquee{
+  display:inline-flex;align-items:center;
+  white-space:nowrap;
+  animation:mscroll 34s linear infinite
+}
+.marquee span{
+  font-size:.71rem;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;
+  padding:0 22px
+}
+.marquee .sep{
+  padding:0 4px;font-size:.55rem;opacity:.55
+}
+@keyframes mscroll{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+
+/* ══ FILTER BAR ══════════════════════════════════ */
+.filter-bar{
+  position:sticky;top:var(--hh);z-index:90;
+  background:var(--white);
+  border-bottom:1.5px solid var(--gray-border);
+  padding:12px 48px;
+  display:flex;flex-direction:column;gap:10px
+}
+
+.frow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+
+/* Chips */
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+
+.chip{
+  padding:5px 14px;border-radius:100px;
+  border:1.5px solid var(--gray-border);
+  background:var(--white);color:var(--black);
+  font-family:inherit;font-size:.78rem;font-weight:600;
+  cursor:pointer;user-select:none;transition:all .14s;line-height:1
+}
+.chip:hover{border-color:var(--red);color:var(--red)}
+.chip.on{background:var(--red);border-color:var(--red);color:var(--white)}
+
+/* Dropdown */
+.drop{position:relative}
+.drop-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 12px;
+  border:1.5px solid var(--gray-border);border-radius:8px;
+  background:var(--white);font-family:inherit;
+  font-size:.78rem;font-weight:600;cursor:pointer;
+  transition:border-color .14s,color .14s;
+  user-select:none;white-space:nowrap
+}
+.drop-btn:hover,.drop-btn.on{border-color:var(--red);color:var(--red)}
+.arr{font-size:.6em;transition:transform .15s}
+.drop.open .arr{transform:rotate(180deg)}
+
+.drop-menu{
+  display:none;position:absolute;
+  top:calc(100% + 6px);left:0;min-width:140px;
+  background:var(--white);
+  border:1.5px solid var(--gray-border);border-radius:10px;
+  padding:6px;box-shadow:0 8px 32px rgba(0,0,0,.1);z-index:300
+}
+.drop.open .drop-menu{display:block}
+
+.drop-menu label{
+  display:flex;align-items:center;gap:9px;
+  padding:7px 10px;border-radius:6px;cursor:pointer;
+  font-size:.81rem;font-weight:500;transition:background .1s
+}
+.drop-menu label:hover{background:var(--gray-bg)}
+.drop-menu input[type=checkbox]{
+  accent-color:var(--red);width:14px;height:14px;flex-shrink:0
+}
+
+/* Price slider */
+.price-g{display:flex;flex-direction:column;gap:4px;min-width:168px}
+
+.price-lrow{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:.74rem;font-weight:600;color:var(--gray-muted)
+}
+.price-lrow-c{
+  font-size:.64rem;letter-spacing:.1em;
+  text-transform:uppercase;opacity:.65
+}
+
+.sl-wrap{position:relative;height:22px}
+
+.sl-track{
+  position:absolute;left:0;right:0;
+  top:50%;transform:translateY(-50%);
+  height:4px;background:var(--gray-border);border-radius:2px
+}
+.sl-fill{
+  position:absolute;top:0;height:100%;
+  background:var(--red);border-radius:2px
+}
+
+.sl-r{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:100%;
+  -webkit-appearance:none;appearance:none;
+  background:transparent;pointer-events:none;
+  height:4px;z-index:2;outline:none
+}
+.sl-r::-webkit-slider-thumb{
+  -webkit-appearance:none;pointer-events:all;
+  width:18px;height:18px;border-radius:50%;
+  background:var(--red);cursor:pointer;
+  border:2.5px solid var(--white);
+  box-shadow:0 1px 5px rgba(0,0,0,.22)
+}
+.sl-r::-moz-range-thumb{
+  pointer-events:all;
+  width:18px;height:18px;border-radius:50%;
+  background:var(--red);cursor:pointer;
+  border:2.5px solid var(--white);
+  box-shadow:0 1px 5px rgba(0,0,0,.22);
+  -moz-appearance:none
+}
+.sl-r::-moz-range-track{
+  background:transparent;border:none;height:4px
+}
+
+/* Sort select */
+.sort-sel{
+  padding:6px 30px 6px 12px;
+  border:1.5px solid var(--gray-border);border-radius:8px;
+  font-family:inherit;font-size:.78rem;font-weight:600;
+  color:var(--black);
+  background:var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E") no-repeat right 10px center;
+  -webkit-appearance:none;appearance:none;
+  cursor:pointer;outline:none;transition:border-color .14s
+}
+.sort-sel:focus{border-color:var(--red)}
+
+/* Search */
+.search-box{position:relative;flex:1;min-width:180px}
+.s-icon{
+  position:absolute;left:11px;top:50%;transform:translateY(-50%);
+  color:var(--gray-muted);pointer-events:none
+}
+.s-input{
+  width:100%;padding:7px 12px 7px 34px;
+  border:1.5px solid var(--gray-border);border-radius:8px;
+  font-family:inherit;font-size:.82rem;color:var(--black);
+  background:var(--gray-bg);outline:none;
+  transition:border-color .14s,background .14s
+}
+.s-input::placeholder{color:var(--gray-muted)}
+.s-input:focus{border-color:var(--red);background:var(--white)}
+
+/* Clear */
+.clr-btn{
+  margin-left:auto;border:none;background:none;
+  font-family:inherit;font-size:.78rem;font-weight:600;
+  color:var(--gray-muted);cursor:pointer;
+  text-decoration:underline;text-underline-offset:3px;
+  white-space:nowrap;transition:color .15s
+}
+.clr-btn:hover{color:var(--red)}
+
+/* ══ MAIN ══════════════════════════════════════════ */
+main{
+  max-width:1440px;margin:0 auto;
+  padding:36px 48px 100px
+}
+
+.res-bar{margin-bottom:24px}
+.res-count{font-size:.82rem;font-weight:600;color:var(--gray-muted)}
+
+/* ══ GRID ══════════════════════════════════════════ */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+
+/* ══ CARD ══════════════════════════════════════════ */
+.card{
+  border-radius:14px;
+  border:1.5px solid var(--gray-border);
+  overflow:hidden;cursor:pointer;
+  position:relative;background:var(--white);
+  transition:transform .22s ease,box-shadow .22s ease
+}
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 16px 48px rgba(0,0,0,.1)
+}
+
+.card-img{
+  aspect-ratio:3/4;
+  position:relative;overflow:hidden
+}
+
+.c-bg{
+  position:absolute;inset:0
+}
+.c-bg::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 28% 22%, rgba(255,255,255,.2) 0%, transparent 55%),
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0px,transparent 20px,
+      rgba(0,0,0,.032) 20px,rgba(0,0,0,.032) 40px
+    )
+}
+.c-bg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(
+    to top,
+    rgba(0,0,0,.64) 0%,
+    rgba(0,0,0,.06) 44%,
+    transparent 68%
+  )
+}
+
+.c-content{
+  position:absolute;inset:0;
+  z-index:2;
+  display:flex;align-items:flex-end;justify-content:space-between;
+  padding:12px 14px
+}
+
+.c-cat{
+  font-size:.64rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.75)
+}
+
+.qv-btn{
+  background:rgba(255,255,255,.95);color:var(--black);
+  border:none;border-radius:7px;
+  padding:7px 13px;font-family:inherit;
+  font-size:.72rem;font-weight:700;
+  letter-spacing:.05em;text-transform:uppercase;cursor:pointer;
+  opacity:0;transform:translateY(6px);
+  transition:opacity .18s,transform .18s
+}
+.card:hover .qv-btn{opacity:1;transform:translateY(0)}
+
+/* Sold ribbon */
+.ribbon{
+  position:absolute;top:20px;right:-32px;z-index:10;
+  background:var(--red);color:var(--white);
+  font-size:.58rem;font-weight:800;
+  letter-spacing:.14em;text-transform:uppercase;
+  padding:5px 46px;transform:rotate(45deg);
+  pointer-events:none
+}
+.card.sold .c-bg{filter:brightness(.78) saturate(.6)}
+
+/* Card body */
+.c-body{
+  padding:14px 16px 16px;
+  background:var(--gray-bg)
+}
+.c-name{
+  font-size:.88rem;font-weight:700;
+  color:var(--black);line-height:1.3;margin-bottom:2px
+}
+.c-sub{
+  font-size:.72rem;color:var(--gray-muted);
+  font-weight:500;margin-bottom:10px
+}
+.c-foot{
+  display:flex;align-items:center;
+  justify-content:space-between;gap:6px
+}
+.c-price{font-size:1.05rem;font-weight:800;color:var(--red)}
+.c-tags{display:flex;align-items:center;gap:5px}
+.t-size{
+  font-size:.67rem;font-weight:700;padding:3px 9px;
+  border-radius:100px;background:var(--white);
+  border:1.5px solid var(--gray-border);color:var(--black);
+  white-space:nowrap
+}
+.t-cond{
+  font-size:.67rem;font-weight:600;
+  color:var(--gray-muted);white-space:nowrap
+}
+
+/* ══ EMPTY STATE ══════════════════════════════════ */
+.empty{display:none;text-align:center;padding:80px 20px}
+.empty h2{font-size:1.35rem;font-weight:700;color:var(--black);margin-bottom:8px}
+.empty p{font-size:.92rem;color:var(--gray-muted)}
+
+/* ══ FOOTER ═══════════════════════════════════════ */
+footer{background:var(--black);color:var(--white);padding:56px 48px}
+.foot-in{
+  max-width:1440px;margin:0 auto;
+  display:flex;justify-content:space-between;
+  align-items:flex-start;gap:48px;flex-wrap:wrap
+}
+.foot-brand .logo-pill{
+  font-size:1.25rem;padding:7px 20px 5px;
+  display:inline-block;cursor:default
+}
+.foot-brand .logo-pill:hover{box-shadow:none}
+.foot-tag{
+  margin-top:8px;font-size:.67rem;font-weight:600;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(255,255,255,.36)
+}
+
+.socials{display:flex;flex-direction:column;gap:12px}
+.socials a{
+  display:inline-flex;align-items:center;gap:10px;
+  text-decoration:none;color:rgba(255,255,255,.58);
+  font-size:.8rem;font-weight:600;
+  letter-spacing:.05em;text-transform:uppercase;
+  transition:color .15s
+}
+.socials a:hover{color:var(--white)}
+.soc-ic{
+  width:30px;height:30px;border-radius:7px;
+  background:rgba(255,255,255,.1);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.88rem;flex-shrink:0
+}
+
+.foot-copy{
+  font-size:.72rem;color:rgba(255,255,255,.3);line-height:1.75
+}
+
+/* ══ RESPONSIVE ═══════════════════════════════════ */
+@media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
+
+@media(max-width:840px){
+  header,.filter-bar,main,footer{padding-left:24px;padding-right:24px}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .foot-in{gap:32px}
+}
+
+@media(max-width:580px){
+  header{padding:0 16px}
+  .logo-sub{display:none}
+  nav{gap:20px}
+  .filter-bar{padding:10px 16px}
+  .chips{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .chips::-webkit-scrollbar{display:none}
+  main{padding:20px 16px 60px}
+  .grid{gap:16px}
+  footer{padding:40px 16px}
+  .price-g{min-width:140px}
+  .frow{gap:6px}
+}
+
+@media(max-width:400px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ═══════════════════════════════════════ -->
+<header>
+  <a class="logo" href="#">
+    <span class="logo-pill">Kwit Trippin</span>
+    <span class="logo-sub">Thrifted.&thinsp;Flipped.&thinsp;Shipped.</span>
+  </a>
+  <nav>
+    <a href="#shop">Shop</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- ══ MARQUEE ══════════════════════════════════════ -->
+<div class="strip" aria-hidden="true">
+  <div class="marquee">
+    <span>Free Shipping Over $75</span><span class="sep">◆</span>
+    <span>New Drops Weekly</span><span class="sep">◆</span>
+    <span>One-of-One Pieces</span><span class="sep">◆</span>
+    <span>Every Item Hand-Picked</span><span class="sep">◆</span>
+    <span>Ships in 48 Hours</span><span class="sep">◆</span>
+    <span>No Fast Fashion. Ever.</span><span class="sep">◆</span>
+    <span>Free Shipping Over $75</span><span class="sep">◆</span>
+    <span>New Drops Weekly</span><span class="sep">◆</span>
+    <span>One-of-One Pieces</span><span class="sep">◆</span>
+    <span>Every Item Hand-Picked</span><span class="sep">◆</span>
+    <span>Ships in 48 Hours</span><span class="sep">◆</span>
+    <span>No Fast Fashion. Ever.</span><span class="sep">◆</span>
+  </div>
+</div>
+
+<!-- ══ FILTER BAR ════════════════════════════════════ -->
+<div class="filter-bar">
+  <!-- Row 1: Categories -->
+  <div class="frow">
+    <div class="chips" id="catChips">
+      <button class="chip on" data-cat="all">All</button>
+      <button class="chip" data-cat="Shirts">Shirts</button>
+      <button class="chip" data-cat="Pants">Pants</button>
+      <button class="chip" data-cat="Outerwear">Outerwear</button>
+      <button class="chip" data-cat="Accessories">Accessories</button>
+      <button class="chip" data-cat="Shoes">Shoes</button>
+      <button class="chip" data-cat="Hats">Hats</button>
+    </div>
+  </div>
+
+  <!-- Row 2: Other filters -->
+  <div class="frow">
+    <!-- Size -->
+    <div class="drop" id="sizeDrop">
+      <button class="drop-btn" id="sizeBtn">Size <span class="arr">▾</span></button>
+      <div class="drop-menu" id="sizeMenu">
+        <label><input type="checkbox" value="XS"> XS</label>
+        <label><input type="checkbox" value="S"> S</label>
+        <label><input type="checkbox" value="M"> M</label>
+        <label><input type="checkbox" value="L"> L</label>
+        <label><input type="checkbox" value="XL"> XL</label>
+        <label><input type="checkbox" value="XXL"> XXL</label>
+        <label><input type="checkbox" value="One Size"> One Size</label>
+      </div>
+    </div>
+
+    <!-- Condition -->
+    <div class="chips" id="condChips">
+      <button class="chip" data-cond="New w/ Tags">New w/ Tags</button>
+      <button class="chip" data-cond="Like New">Like New</button>
+      <button class="chip" data-cond="Good">Good</button>
+      <button class="chip" data-cond="Vintage">Vintage</button>
+    </div>
+
+    <!-- Price -->
+    <div class="price-g">
+      <div class="price-lrow">
+        <span id="plo">$0</span>
+        <span class="price-lrow-c">Price</span>
+        <span id="phi">$200</span>
+      </div>
+      <div class="sl-wrap">
+        <div class="sl-track">
+          <div class="sl-fill" id="slFill" style="left:0%;width:100%"></div>
+        </div>
+        <input class="sl-r" type="range" id="rlo" min="0" max="200" value="0" step="5">
+        <input class="sl-r" type="range" id="rhi" min="0" max="200" value="200" step="5">
+      </div>
+    </div>
+
+    <!-- Sort -->
+    <select class="sort-sel" id="sortSel">
+      <option value="newest">Newest</option>
+      <option value="asc">Price: Low → High</option>
+      <option value="desc">Price: High → Low</option>
+      <option value="az">Name A–Z</option>
+    </select>
+
+    <!-- Search -->
+    <div class="search-box">
+      <svg class="s-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input class="s-input" type="text" id="search" placeholder="Search items or brands…" aria-label="Search items or brands">
+    </div>
+
+    <button class="clr-btn" id="clrBtn">Clear filters</button>
+  </div>
+</div>
+
+<!-- ══ MAIN ══════════════════════════════════════════ -->
+<main id="shop">
+  <div class="res-bar">
+    <span class="res-count" id="rc">Showing 0 of 24 items</span>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty">
+    <h2>Nothing matches that combo.</h2>
+    <p>Try loosening up the filters — there's good stuff out there.</p>
+  </div>
+</main>
+
+<!-- ══ FOOTER ═══════════════════════════════════════ -->
+<footer id="contact">
+  <div class="foot-in">
+    <div class="foot-brand">
+      <span class="logo-pill">Kwit Trippin</span>
+      <div class="foot-tag">Thrifted. Flipped. Shipped.</div>
+    </div>
+    <div class="socials">
+      <a href="#"><span class="soc-ic">📷</span> Instagram</a>
+      <a href="#"><span class="soc-ic">🛍</span> Depop</a>
+      <a href="#"><span class="soc-ic">👗</span> Poshmark</a>
+    </div>
+    <div class="foot-copy">
+      © 2024 Kwit Trippin<br>
+      Made with love in the Midwest.
+    </div>
+  </div>
+</footer>
+
+<script>
+// ══ DATA ═══════════════════════════════════════════
+const DATA = [
+  {id:1,  name:"Carhartt Detroit Jacket",        sub:"Tan / Blanket-Lined",          brand:"Carhartt",        cat:"Outerwear",   size:"L",        price:95,  cond:"Good",        sold:false, bg:"#c8a87a"},
+  {id:2,  name:"Dickies 874 Workpants",          sub:"Charcoal / 32×30",             brand:"Dickies",         cat:"Pants",       size:"M",        price:38,  cond:"Good",        sold:false, bg:"#5a5a5a"},
+  {id:3,  name:"Champion Reverse Weave Hoodie",  sub:"Burgundy / Vintage Cut",       brand:"Champion",        cat:"Outerwear",   size:"L",        price:65,  cond:"Like New",    sold:true,  bg:"#7c2d3a"},
+  {id:4,  name:"Levi's 501 Jeans",               sub:"Dark Wash / 34×32",            brand:"Levi's",          cat:"Pants",       size:"M",        price:55,  cond:"Good",        sold:false, bg:"#2a4a7f"},
+  {id:5,  name:"Carhartt Knit Beanie",           sub:"Black / Rib-Knit",             brand:"Carhartt",        cat:"Hats",        size:"One Size", price:18,  cond:"Like New",    sold:false, bg:"#1c1c1c"},
+  {id:6,  name:"Ralph Lauren Oxford Shirt",      sub:"Blue Stripe / BD Collar",      brand:"Ralph Lauren",    cat:"Shirts",      size:"M",        price:28,  cond:"Good",        sold:false, bg:"#4a7db5"},
+  {id:7,  name:"Wrangler Sherpa Trucker",        sub:"Denim / Sherpa Lining",        brand:"Wrangler",        cat:"Outerwear",   size:"XL",       price:72,  cond:"Good",        sold:false, bg:"#5a7c9a"},
+  {id:8,  name:"Polo Ralph Lauren Quarter-Zip",  sub:"Navy / Fleece Knit",           brand:"Ralph Lauren",    cat:"Shirts",      size:"L",        price:45,  cond:"Like New",    sold:false, bg:"#1a3a6b"},
+  {id:9,  name:"Columbia Fleece Vest",           sub:"Forest Green / Full-Zip",      brand:"Columbia",        cat:"Outerwear",   size:"M",        price:35,  cond:"Good",        sold:false, bg:"#2d5a3d"},
+  {id:10, name:"Levi's Sherpa Trucker",          sub:"Medium Wash / Sherpa",         brand:"Levi's",          cat:"Outerwear",   size:"S",        price:88,  cond:"Like New",    sold:false, bg:"#7a9ec0"},
+  {id:11, name:"Timberland 6\" Boot",            sub:"Wheat / Classic / Sz 10",      brand:"Timberland",      cat:"Shoes",       size:"M",        price:120, cond:"Good",        sold:false, bg:"#c49a5a"},
+  {id:12, name:"New Balance 990v4",              sub:"Gray / Made in USA / Sz 11",   brand:"New Balance",     cat:"Shoes",       size:"L",        price:145, cond:"Like New",    sold:true,  bg:"#9a9a9a"},
+  {id:13, name:"Carhartt WIP Pants",             sub:"Stone / 32×32",                brand:"Carhartt WIP",    cat:"Pants",       size:"M",        price:65,  cond:"Like New",    sold:false, bg:"#c0b490"},
+  {id:14, name:"Nike Windbreaker",               sub:"Teal / Vintage 90s",           brand:"Nike",            cat:"Outerwear",   size:"M",        price:78,  cond:"Good",        sold:false, bg:"#1a8a8a"},
+  {id:15, name:"Wrangler Cowboy Cut Jeans",      sub:"Blue / 30×30",                 brand:"Wrangler",        cat:"Pants",       size:"S",        price:42,  cond:"Good",        sold:false, bg:"#3a6fa5"},
+  {id:16, name:"Tommy Hilfiger Polo",            sub:"Red / Classic Logo",           brand:"Tommy Hilfiger",  cat:"Shirts",      size:"S",        price:22,  cond:"Good",        sold:false, bg:"#cc3333"},
+  {id:17, name:"Patagonia Synchilla Snap-T",     sub:"Navy / Fleece Pullover",       brand:"Patagonia",       cat:"Outerwear",   size:"M",        price:95,  cond:"Like New",    sold:true,  bg:"#2c3e6b"},
+  {id:18, name:"Carhartt Canvas Shirt Jacket",   sub:"Brown / Duck Canvas",          brand:"Carhartt",        cat:"Outerwear",   size:"XL",       price:110, cond:"New w/ Tags", sold:false, bg:"#8b6340"},
+  {id:19, name:"Dickies Work Shirt",             sub:"Khaki / Long-Sleeve",          brand:"Dickies",         cat:"Shirts",      size:"XL",       price:32,  cond:"Good",        sold:false, bg:"#b0a07a"},
+  {id:20, name:"Levi's 550 Jeans",               sub:"Light Wash / Relaxed Fit",     brand:"Levi's",          cat:"Pants",       size:"L",        price:45,  cond:"Vintage",     sold:false, bg:"#7aa5c8"},
+  {id:21, name:"Starter Satin Jacket",           sub:"Black & Gold / Vintage",       brand:"Starter",         cat:"Outerwear",   size:"L",        price:85,  cond:"Vintage",     sold:false, bg:"#1c1c1c"},
+  {id:22, name:"Leather Work Belt",              sub:"Brown / Braided",              brand:"Fossil",          cat:"Accessories", size:"One Size", price:15,  cond:"Good",        sold:false, bg:"#8b5e3c"},
+  {id:23, name:"L.L. Bean Chamois Flannel",      sub:"Red Plaid / Relaxed Fit",      brand:"L.L. Bean",       cat:"Shirts",      size:"XL",       price:36,  cond:"Good",        sold:false, bg:"#8b3a2a"},
+  {id:24, name:"Brooks Brothers OCBD",           sub:"White / Classic Fit",          brand:"Brooks Brothers", cat:"Shirts",      size:"M",        price:38,  cond:"New w/ Tags", sold:false, bg:"#d0cac2"},
+];
+
+// ══ STATE ══════════════════════════════════════════
+const S = {q:'', cats:[], sizes:[], plo:0, phi:200, conds:[], sort:'newest'};
+
+// ══ DOM ════════════════════════════════════════════
+const $grid     = document.getElementById('grid');
+const $empty    = document.getElementById('empty');
+const $rc       = document.getElementById('rc');
+const $search   = document.getElementById('search');
+const $sortSel  = document.getElementById('sortSel');
+const $rlo      = document.getElementById('rlo');
+const $rhi      = document.getElementById('rhi');
+const $slFill   = document.getElementById('slFill');
+const $plo      = document.getElementById('plo');
+const $phi      = document.getElementById('phi');
+const $catChips = document.getElementById('catChips');
+const $condChips= document.getElementById('condChips');
+const $sizeDrop = document.getElementById('sizeDrop');
+const $sizeBtn  = document.getElementById('sizeBtn');
+const $sizeMenu = document.getElementById('sizeMenu');
+const $clrBtn   = document.getElementById('clrBtn');
+
+// ══ RENDER ═════════════════════════════════════════
+function render() {
+  let list = DATA.filter(it => {
+    if (S.q) {
+      const q = S.q.toLowerCase();
+      if (!it.name.toLowerCase().includes(q) && !it.brand.toLowerCase().includes(q)) return false;
+    }
+    if (S.cats.length  && !S.cats.includes(it.cat))   return false;
+    if (S.sizes.length && !S.sizes.includes(it.size)) return false;
+    if (it.price < S.plo || it.price > S.phi)         return false;
+    if (S.conds.length && !S.conds.includes(it.cond)) return false;
+    return true;
+  });
+
+  if (S.sort === 'asc')  list.sort((a,b) => a.price - b.price);
+  if (S.sort === 'desc') list.sort((a,b) => b.price - a.price);
+  if (S.sort === 'az')   list.sort((a,b) => a.name.localeCompare(b.name));
+
+  $rc.textContent = `Showing ${list.length} of ${DATA.length} items`;
+
+  if (!list.length) {
+    $grid.innerHTML = '';
+    $empty.style.display = 'block';
+    return;
+  }
+  $empty.style.display = 'none';
+  $grid.innerHTML = list.map(it => `
+    <div class="card${it.sold ? ' sold' : ''}">
+      ${it.sold ? '<div class="ribbon">Sold Out</div>' : ''}
+      <div class="card-img">
+        <div class="c-bg" style="background:${it.bg}"></div>
+        <div class="c-content">
+          <span class="c-cat">${it.cat}</span>
+          <button class="qv-btn">Quick View</button>
+        </div>
+      </div>
+      <div class="c-body">
+        <div class="c-name">${it.name}</div>
+        <div class="c-sub">${it.brand} · ${it.sub}</div>
+        <div class="c-foot">
+          <span class="c-price">$${it.price}</span>
+          <span class="c-tags">
+            <span class="t-size">${it.size}</span>
+            <span class="t-cond">${it.cond}</span>
+          </span>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+// ══ PRICE SLIDER ═══════════════════════════════════
+function syncSlider() {
+  let lo = parseInt($rlo.value), hi = parseInt($rhi.value);
+  if (lo > hi) { $rlo.value = hi; lo = hi; }
+  $rlo.style.zIndex = lo >= hi ? 3 : 2;
+  $plo.textContent = '$' + lo;
+  $phi.textContent = '$' + hi;
+  $slFill.style.left  = (lo / 200 * 100) + '%';
+  $slFill.style.width = ((hi - lo) / 200 * 100) + '%';
+  S.plo = lo; S.phi = hi;
+  render();
+}
+$rlo.addEventListener('input', syncSlider);
+$rhi.addEventListener('input', syncSlider);
+
+// ══ CATEGORY CHIPS ══════════════════════════════════
+$catChips.addEventListener('click', e => {
+  const b = e.target.closest('[data-cat]'); if (!b) return;
+  const cat = b.dataset.cat;
+  if (cat === 'all') {
+    S.cats = [];
+    $catChips.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+    b.classList.add('on');
+  } else {
+    $catChips.querySelector('[data-cat="all"]').classList.remove('on');
+    const i = S.cats.indexOf(cat);
+    if (i >= 0) { S.cats.splice(i,1); b.classList.remove('on'); }
+    else        { S.cats.push(cat);   b.classList.add('on'); }
+    if (!S.cats.length) $catChips.querySelector('[data-cat="all"]').classList.add('on');
+  }
+  render();
+});
+
+// ══ CONDITION CHIPS ══════════════════════════════════
+$condChips.addEventListener('click', e => {
+  const b = e.target.closest('[data-cond]'); if (!b) return;
+  const cond = b.dataset.cond;
+  const i = S.conds.indexOf(cond);
+  if (i >= 0) { S.conds.splice(i,1); b.classList.remove('on'); }
+  else        { S.conds.push(cond);  b.classList.add('on'); }
+  render();
+});
+
+// ══ SIZE DROPDOWN ════════════════════════════════════
+$sizeBtn.addEventListener('click', e => {
+  e.stopPropagation();
+  $sizeDrop.classList.toggle('open');
+});
+document.addEventListener('click', e => {
+  if (!$sizeDrop.contains(e.target)) $sizeDrop.classList.remove('open');
+});
+$sizeMenu.addEventListener('change', e => {
+  if (e.target.type !== 'checkbox') return;
+  S.sizes = [...$sizeMenu.querySelectorAll('input:checked')].map(i => i.value);
+  $sizeBtn.classList.toggle('on', S.sizes.length > 0);
+  render();
+});
+
+// ══ SEARCH ════════════════════════════════════════════
+$search.addEventListener('input', e => { S.q = e.target.value.trim(); render(); });
+
+// ══ SORT ══════════════════════════════════════════════
+$sortSel.addEventListener('change', e => { S.sort = e.target.value; render(); });
+
+// ══ CLEAR ═════════════════════════════════════════════
+$clrBtn.addEventListener('click', () => {
+  S.q=''; S.cats=[]; S.sizes=[]; S.plo=0; S.phi=200; S.conds=[]; S.sort='newest';
+  $search.value='';
+  $sortSel.value='newest';
+  $rlo.value=0; $rhi.value=200;
+  $slFill.style.left='0%'; $slFill.style.width='100%';
+  $plo.textContent='$0'; $phi.textContent='$200';
+  $catChips.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+  $catChips.querySelector('[data-cat="all"]').classList.add('on');
+  $condChips.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+  $sizeMenu.querySelectorAll('input').forEach(i => i.checked=false);
+  $sizeBtn.classList.remove('on');
+  render();
+});
+
+// ══ INIT ══════════════════════════════════════════════
+syncSlider();
+</script>
+</body>
+</html>
